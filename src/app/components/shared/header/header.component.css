@@ -1,0 +1,17 @@
+.circle{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: skyblue;
+}
+
+.square{
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+    background-color: aquamarine;
+}
+
+.validInput{
+    border: 1px solid red;
+}

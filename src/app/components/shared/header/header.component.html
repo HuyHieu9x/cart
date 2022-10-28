@@ -1,6 +1,76 @@
+<div class="container">
+  <!-- <button (click)="onAddForChild()">ADD in Parent</button> -->
+</div>
+
+<div class="container">
+  <!-- <app-header [titleHeader] = 'titleHeaderParent'></app-header> -->
+  <app-shopping-cart></app-shopping-cart>
+  
+<input #phone placeholder="phone number" [(ngModel)] = "name" />
+<h3 [ngStyle]="styleByHieu">Your name : {{name}}</h3> 
+<div [ngClass]="classByHieu" *ngIf="isShow"></div>
+<div><button (click)="toggleCircle()">Toggle circle</button></div>
+
+<div *ngIf="isShow">
+  <input type="text" name="" id="" placeholder="English" [(ngModel)] = "en">
+  <input type="text" name="" id="" placeholder="Vietnam" [(ngModel)] = "vi">
+</div>
+
+<button (click)="add()">Add</button>
+
+<div>
+  <select [(ngModel)] = "filter">
+    <option value="ALL">ALL</option>
+    <option value="REMEMBER">REMEMBER</option>
+    <option value="FORGET">FORGET</option>
+  </select>
+</div>
+
+<div>
+  <ul>
+    <div *ngFor="let item of arrWords" >
+      <li [ngStyle]="{color : item.memorized ? '' : 'red'}" >
+        <div *ngIf="filter === 'ALL' || (filter === 'REMEMBER' && item.memorized) || (filter === 'FORGET' && !item.memorized)">{{item.id}} - {{item.en}} - {{item.vn}} --
+          <button type="button" class="btn btn-danger" (click)="del(item.id)">Danger</button>
+          <button type="button" class="btn btn-success" (click)="item.memorized = !item.memorized">{{item.memorized ? 'Chua thuoc' : 'Da thuoc'}}</button>
+        </div>
+    </li>
+    </div>
+  </ul>
+</div>
+
+<form (submit)="onSubmit()" [formGroup]="formSign">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+      [ngClass]="{validInput : formSign.invalid}"
+    >
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <small id="" class="" [ngStyle]="{color : 'red'}" *ngIf="formSign.controls['email'].errors?.['required']"> Email not required.</small>
+    <small id="" class="" [ngStyle]="{color : 'red'}" *ngIf="formSign.controls['email'].errors?.['minlength']"> Email min-length = 4.</small>
+    <small id="" class="" [ngStyle]="{color : 'red'}" *ngIf="formSign.controls['email'].errors?.['email']"> Email not format.</small>
+    <small id="" class="" [ngStyle]="{color : 'red'}" *ngIf="formSign.controls['email'].errors?.['gmail']"> Email not format custom by hieuNH.</small>
+  </div>
+  <div class="form-group">  
+    <label for="exampleInputPassword1">Password</label>
+    <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name = "password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <div formGroupName = "subject">
+    <label for=""><input type="checkbox" name = "nodeJS" formControlName = "nodeJS"> NodeJS</label>
+    <label for=""><input type="checkbox" name = "angular" formControlName = "angular"> Angular</label>
+    <label for=""><input type="checkbox" name = "reactJS" formControlName = "reactJS"> ReactJS</label>
+  </div>
+  <button type="submit" [disabled]="formSign.invalid" class="btn btn-primary">Submit</button>
+</form>
 
 <div class="jumbotron">
-    <h1 class="display-4">Hello, world!</h1>
+    <p>Today is {{today | date : 'short'}}</p>
+    <h1 class="display-4">Hello, {{titleHeader}}!</h1>
+    <h1 class="display-4">Value, {{value}}!</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
@@ -8,3 +78,6 @@
       <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </p>
   </div>
+</div>
+
+<app-footer></app-footer>
